@@ -11,8 +11,19 @@ import { DatabaseService } from './server/services/database.service';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
+
 const dbService = new DatabaseService();
 const app = express();
+
+app.use(
+  '/images',
+  express.static('public/images', {
+    etag: false,
+    maxAge: 0,
+    lastModified: true,
+  })
+);
+
 const angularApp = new AngularNodeAppEngine();
 
 /**

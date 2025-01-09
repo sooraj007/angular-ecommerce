@@ -10,7 +10,8 @@
     "test": "ng test",
     "serve:ssr:angular-shop": "node dist/angular-shop/server/server.mjs",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "tsx src/server/db/migrate.ts"
+    "db:migrate": "tsx src/server/db/migrate.ts",
+    "db:seed": "tsx src/server/db/seed.ts"
   },
   "private": true,
   "dependencies": {
