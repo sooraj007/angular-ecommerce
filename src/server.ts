@@ -7,12 +7,14 @@ import {
 import express from 'express';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { DatabaseService } from './server/services/database.service';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
+const dbService = new DatabaseService();
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -64,3 +66,28 @@ if (isMainModule(import.meta.url)) {
  * The request handler used by the Angular CLI (dev-server and during build).
  */
 export const reqHandler = createNodeRequestHandler(app);
+
+// Add API endpoints
+app.get('/api/products', async (req, res) => {
+  const products = await dbService.getProducts();
+  res.json(products);
+});
+
+app.get('/api/products/:id', async (req, res) => {
+  const product = await dbService.getProductById(Number(req.params.id));
+  if (!product) {
+    res.status(404).json({ error: 'Product not found' });
+    return;
+  }
+  res.json(product);
+});
+
+app.get('/api/categories', async (req, res) => {
+  const categories = await dbService.getCategories();
+  res.json(categories);
+});
+
+app.get('/api/categories/:id/products', async (req, res) => {
+  const products = await dbService.getProductsByCategory(Number(req.params.id));
+  res.json(products);
+});
