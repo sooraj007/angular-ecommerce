@@ -1,0 +1,49 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (product of products; track product.id) {
+    <div
+        class="group relative bg-zinc-900/50 backdrop-blur-sm rounded-xl overflow-hidden border border-zinc-800/50 flex flex-col shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1),_0_0_0_1px_rgba(255,255,255,0.1)] transition-all hover:bg-gradient-to-b hover:from-zinc-800/50 hover:to-zinc-900/50">
+        <div class="relative aspect-square bg-gradient-to-b from-zinc-800/50 to-zinc-900/50 p-4">
+            <img [src]="product.image" [alt]="product.name" class="object-cover w-full h-full" />
+            <div class="absolute top-2 right-2 flex gap-2">
+                <span hlmBadge *ngIf="product.sale"
+                    class="bg-green-500 text-white px-2 py-0.5 text-xs font-medium rounded">
+                    SALE
+                </span>
+                <span hlmBadge *ngIf="product.discount"
+                    class="bg-zinc-800 text-white px-2 py-0.5 text-xs font-medium rounded">
+                    {{product.discount}}
+                </span>
+            </div>
+        </div>
+        <div
+            class="p-4 flex flex-col justify-between flex-grow bg-gradient-to-b from-transparent to-zinc-900/50 backdrop-blur-sm">
+            <div>
+                <h3 class="text-lg font-medium text-white mb-1">
+                    {{product.name}}
+                </h3>
+                <p class="text-sm text-zinc-400 mb-2">
+                    {{product.available ? "Available (In Stock)" : "Out of Stock"}}
+                </p>
+                <div class="flex items-baseline gap-2 mb-4">
+                    <span class="text-xl font-bold text-white">
+                        ${{product.price.toFixed(2)}}
+                    </span>
+                    <span class="text-sm text-zinc-500 line-through">
+                        ${{product.originalPrice.toFixed(2)}}
+                    </span>
+                </div>
+            </div>
+            <div class="flex gap-2 mt-auto">
+                <button hlmBtn
+                    class="flex-1 bg-gradient-to-b from-[#fe561b] to-[#f34c12] hover:from-[#ff6937] hover:to-[#fe561b] text-white text-sm shadow-[0_0_0_1px_rgba(255,255,255,0.1)] transition-all">
+                    Add to Cart
+                </button>
+                <button hlmBtn
+                    class="flex-1 bg-gradient-to-b from-zinc-700 to-zinc-800 hover:from-zinc-600 hover:to-zinc-700 text-white text-sm shadow-[0_0_0_1px_rgba(255,255,255,0.1)] transition-all">
+                    Buy Now
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+</div>

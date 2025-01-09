@@ -1,0 +1,23 @@
+<header class="sticky top-0 z-50 bg-black/80 backdrop-blur-sm border-b border-zinc-800">
+    <div class="container mx-auto px-4 h-16 flex items-center justify-between">
+        <div class="text-2xl font-bold text-white">VeggieMart</div>
+        <div class="flex items-center gap-6">
+            <div class="relative hidden md:block">
+                <ng-icon name="hugeSearch01" class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 h-4 w-4" />
+                <Input hlmInput placeholder="Search vegetables..."
+                    class="w-[300px] pl-10 bg-zinc-900 border-zinc-800 text-white placeholder:text-zinc-500 focus:ring-[#fe561b]" />
+            </div>
+            <button hlmBtn variant="ghost" class="relative text-white hover:bg-zinc-900">
+                <ng-icon name="hugeShoppingCart02" class="h-5 w-5" />
+                <span
+                    class="absolute -top-1 -right-1 bg-[#fe561b] text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                    3
+                </span>
+            </button>
+            <button hlmBtn variant="ghost" class="text-white hover:bg-zinc-900">
+                <span>Account</span>
+                <ng-icon name="hugeArrowDown01" class="ml-2 h-4 w-4" />
+            </button>
+        </div>
+    </div>
+</header>
