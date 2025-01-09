@@ -11,10 +11,9 @@ import { DatabaseService } from './server/services/database.service';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
-
+const dbService = new DatabaseService();
 const app = express();
 const angularApp = new AngularNodeAppEngine();
-const dbService = new DatabaseService();
 
 /**
  * Example Express Rest API endpoints can be defined here.
