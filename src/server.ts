@@ -15,6 +15,10 @@ const browserDistFolder = resolve(serverDistFolder, '../browser');
 const dbService = new DatabaseService();
 const app = express();
 
+// Add middleware to parse JSON bodies - this must come before routes
+app.use(express.json());
+
+// Static files middleware
 app.use(
   '/images',
   express.static('public/images', {
@@ -24,23 +28,25 @@ app.use(
   })
 );
 
+// API Routes
+app.get('/api/products', async (req, res) => {
+  const products = await dbService.getProducts();
+  res.json(products);
+});
+
+app.post('/api/products/filter', async (req, res) => {
+  const products = await dbService.getProductsByFilter(req.body);
+  res.json(products);
+});
+
+app.get('/api/categories', async (req, res) => {
+  const categories = await dbService.getCategories();
+  res.json(categories);
+});
+
+// Angular SSR setup
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/**', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
-
-/**
- * Serve static files from /browser
- */
 app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
@@ -49,9 +55,6 @@ app.use(
   })
 );
 
-/**
- * Handle all other requests by rendering the Angular application.
- */
 app.use('/**', (req, res, next) => {
   angularApp
     .handle(req)
@@ -61,10 +64,6 @@ app.use('/**', (req, res, next) => {
     .catch(next);
 });
 
-/**
- * Start the server if this module is the main entry point.
- * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
- */
 if (isMainModule(import.meta.url)) {
   const port = process.env['PORT'] || 4000;
   app.listen(port, () => {
@@ -72,32 +71,4 @@ if (isMainModule(import.meta.url)) {
   });
 }
 
-/**
- * The request handler used by the Angular CLI (dev-server and during build).
- */
 export const reqHandler = createNodeRequestHandler(app);
-
-// Add API endpoints
-app.get('/api/products', async (req, res) => {
-  const products = await dbService.getProducts();
-  res.json(products);
-});
-
-app.get('/api/products/:id', async (req, res) => {
-  const product = await dbService.getProductById(Number(req.params.id));
-  if (!product) {
-    res.status(404).json({ error: 'Product not found' });
-    return;
-  }
-  res.json(product);
-});
-
-app.get('/api/categories', async (req, res) => {
-  const categories = await dbService.getCategories();
-  res.json(categories);
-});
-
-app.get('/api/categories/:id/products', async (req, res) => {
-  const products = await dbService.getProductsByCategory(Number(req.params.id));
-  res.json(products);
-});

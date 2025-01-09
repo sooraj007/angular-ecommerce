@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../services/data.service';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
@@ -9,14 +9,11 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
   imports: [CommonModule, HlmButtonDirective],
   templateUrl: './product-grid.component.html',
 })
-export class ProductGridComponent implements OnInit {
-  products: any[] = [];
-
-  constructor(private dataService: DataService) {}
+export class ProductGridComponent {
+  private dataService = inject(DataService);
+  products = this.dataService.products;
 
   ngOnInit() {
-    this.dataService.getProducts().subscribe((products: any) => {
-      this.products = products;
-    });
+    this.dataService.getProducts();
   }
 }

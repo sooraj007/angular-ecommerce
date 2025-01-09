@@ -1,25 +1,31 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
+  private productsSignal = signal<any[]>([]);
+  readonly products = this.productsSignal.asReadonly();
+
   constructor(private http: HttpClient) {}
 
   getProducts() {
-    return this.http.get('/api/products');
+    this.http.get<any[]>('/api/products').subscribe((products) => {
+      this.productsSignal.set(products);
+    });
   }
 
-  getProduct(id: number) {
-    return this.http.get(`/api/products/${id}`);
+  filterProducts(filter: any) {
+    console.log(filter);
+    this.http
+      .post<any[]>('/api/products/filter', filter)
+      .subscribe((products) => {
+        this.productsSignal.set(products);
+      });
   }
 
   getCategories() {
     return this.http.get('/api/categories');
-  }
-
-  getCategoryProducts(categoryId: number) {
-    return this.http.get(`/api/categories/${categoryId}/products`);
   }
 }
