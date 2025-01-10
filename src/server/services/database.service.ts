@@ -32,7 +32,7 @@ export class DatabaseService {
     rating?: string[];
   }) {
     let conditions: SQL[] = [];
-    console.log(filter);
+
     if (
       filter?.priceRange?.min !== undefined &&
       filter?.priceRange?.max !== undefined

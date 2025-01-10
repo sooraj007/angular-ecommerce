@@ -1,59 +1,141 @@
-# AngularShop
+# Angular Shop
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
+A modern e-commerce application built with Angular 19 and Express, featuring server-side rendering (SSR) and a robust SQLite database with Drizzle ORM.
 
-## Development server
+## Tech Stack
 
-To start a local development server, run:
+### Frontend
 
-```bash
-ng serve
+- **Angular 19**: Latest version of Angular framework
+- **TailwindCSS**: For utility-first CSS styling
+- **Spartan NG**: UI component library for Angular
+- **ng-icons**: Icon library including Lucide and Huge Icons sets
+- **RxJS**: Reactive programming library
+
+### Backend
+
+- **Express.js**: Node.js web application framework
+- **SQLite3**: Lightweight, file-based database
+- **Drizzle ORM**: Modern TypeScript ORM
+- **Angular SSR**: Server-side rendering implementation
+
+## Architecture
+
+### Frontend Architecture
+
+- **Components-based structure** in `src/app/components/`
+- **Services layer** for data management and API communication
+- **Reactive state management** using RxJS
+- **Modern UI/UX** with TailwindCSS and Spartan NG components
+- **Type-safe** development with TypeScript
+
+### Backend Architecture
+
+- **Express server** with Angular SSR integration
+- **RESTful API endpoints** for product and category management
+- **Database service layer** abstracting data operations
+- **Drizzle ORM** for type-safe database operations
+- **Migration system** for database schema management
+
+## Project Structure
+
+```
+angular-shop/
+├── src/
+│   ├── app/               # Angular application code
+│   │   ├── components/    # UI components
+│   │   ├── services/     # Angular services
+│   │   └── routes.ts     # Application routing
+│   ├── server/           # Backend server code
+│   │   ├── db/          # Database configuration and migrations
+│   │   └── services/    # Backend services
+│   └── server.ts         # Express server setup
+├── public/               # Static assets
+├── drizzle/             # Drizzle ORM migrations
+└── dist/                # Build output
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Setup and Installation
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. **Clone the repository**
 
 ```bash
-ng generate component component-name
+git clone [repository-url]
+cd angular-shop
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+2. **Install dependencies**
 
 ```bash
-ng generate --help
+npm install
 ```
 
-## Building
-
-To build the project run:
+3. **Database Setup**
 
 ```bash
-ng build
+npm run db:generate  # Generate database migrations
+npm run db:migrate  # Apply migrations
+npm run db:seed     # Seed initial data
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+4. **Development Server**
 
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+5. **Build for Production**
 
 ```bash
-ng e2e
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Available Scripts
 
-## Additional Resources
+- `npm start`: Start development server
+- `npm run build`: Build for production
+- `npm run build:server`: Build server-side code
+- `npm run serve:ssr`: Start SSR server
+- `npm run db:generate`: Generate database migrations
+- `npm run db:migrate`: Run database migrations
+- `npm run db:seed`: Seed database with initial data
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Database Schema
+
+The application uses SQLite with Drizzle ORM for data persistence. Key tables include:
+
+- Products
+- Categories
+- Product-Category relationships
+
+## API Endpoints
+
+- `GET /api/products`: Fetch all products
+- `POST /api/products/filter`: Get filtered products
+- `GET /api/categories`: Fetch all categories
+
+## Performance Optimizations
+
+- Server-side rendering for improved initial load
+- Static file caching
+- Optimized image serving
+- Tailwind CSS purging for production builds
+
+## Development Guidelines
+
+- Follow Angular style guide
+- Use TypeScript strict mode
+- Implement lazy loading for routes
+- Write unit tests for components and services
+- Follow REST API best practices
+
+## Requirements
+
+- Node.js 18+
+- npm 9+
+- Modern web browser
+- SQLite3
+
+## License
+
+[Your License Here]
