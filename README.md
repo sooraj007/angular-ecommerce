@@ -2,6 +2,12 @@
 
 A modern e-commerce application built with Angular 19 and Express, featuring server-side rendering (SSR) and a robust SQLite database with Drizzle ORM.
 
+## Application Preview
+
+Below is a screenshot of the VeggiesMart application interface, showcasing the modern dark theme design with product grid and filtering capabilities:
+
+![Angular Shop Screenshot](public/images/screenshot.png)
+
 ## Tech Stack
 
 ### Frontend
